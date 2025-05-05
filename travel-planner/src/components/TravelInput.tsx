@@ -11,7 +11,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
+  SelectChangeEvent,
   Alert,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -35,11 +35,19 @@ const TravelInput: React.FC = () => {
   });
   const [error, setError] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name as string]: value,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (e: SelectChangeEvent) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
     }));
   };
 
@@ -64,8 +72,8 @@ const TravelInput: React.FC = () => {
               {error}
             </Alert>
           )}
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+          <Box sx={{ display: 'grid', gap: 2 }}>
+            <Box>
               <TextField
                 required
                 fullWidth
@@ -73,10 +81,10 @@ const TravelInput: React.FC = () => {
                 label="Destination"
                 name="destination"
                 value={formData.destination}
-                onChange={handleChange}
+                onChange={handleTextChange}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Box>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
               <TextField
                 required
                 fullWidth
@@ -85,10 +93,8 @@ const TravelInput: React.FC = () => {
                 name="budget"
                 type="number"
                 value={formData.budget}
-                onChange={handleChange}
+                onChange={handleTextChange}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -97,10 +103,10 @@ const TravelInput: React.FC = () => {
                 name="days"
                 type="number"
                 value={formData.days}
-                onChange={handleChange}
+                onChange={handleTextChange}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Box>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
               <FormControl fullWidth>
                 <InputLabel id="transport-label">Transport Type</InputLabel>
                 <Select
@@ -109,14 +115,12 @@ const TravelInput: React.FC = () => {
                   name="transportType"
                   value={formData.transportType}
                   label="Transport Type"
-                  onChange={handleChange}
+                  onChange={handleSelectChange}
                 >
                   <MenuItem value="public">Public Transport</MenuItem>
                   <MenuItem value="private">Private Transport</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel id="hotel-label">Hotel Preference</InputLabel>
                 <Select
@@ -125,15 +129,15 @@ const TravelInput: React.FC = () => {
                   name="hotelPreference"
                   value={formData.hotelPreference}
                   label="Hotel Preference"
-                  onChange={handleChange}
+                  onChange={handleSelectChange}
                 >
                   <MenuItem value="budget">Budget</MenuItem>
                   <MenuItem value="mid-range">Mid-Range</MenuItem>
                   <MenuItem value="luxury">Luxury</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
           <Button
             type="submit"
             fullWidth

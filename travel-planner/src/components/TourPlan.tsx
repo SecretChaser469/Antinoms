@@ -587,8 +587,8 @@ const TourPlan: React.FC = () => {
                   <Typography variant="h5" gutterBottom sx={{ color: '#ff4081' }}>
                     Destination Overview
                   </Typography>
-                  <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+                    <Box>
                       <Typography variant="body1" paragraph>
                         <strong>Best Time to Visit:</strong> {itinerary.bestTimeToVisit}
                       </Typography>
@@ -598,8 +598,8 @@ const TourPlan: React.FC = () => {
                       <Typography variant="body1" paragraph>
                         <strong>Total Budget:</strong> {itinerary.totalBudget}
                       </Typography>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
+                    </Box>
+                    <Box>
                       <Typography variant="body1" paragraph>
                         <strong>Local Cuisine:</strong>
                       </Typography>
@@ -608,8 +608,8 @@ const TourPlan: React.FC = () => {
                           <Chip key={index} label={item} color="primary" variant="outlined" />
                         ))}
                       </Box>
-                    </Grid>
-                  </Grid>
+                    </Box>
+                  </Box>
                 </Box>
 
                 {/* Cultural Tips */}
